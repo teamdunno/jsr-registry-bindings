@@ -1,24 +1,23 @@
 /** Empty object, instead of using `{}` */
 export type EmptyObject = Record<string|number|symbol, never>
 /** Functions provider for `version` property on {@link RootMeta}  */
-export interface RootMetaVersionFunctions {
-    /** Convert {@link RootMetaVersion} to unyanked versions */
-    toUnyanked():RootMetaVersion
-    /** Convert {@link RootMetaVersion} to yanked versions */
-    toYanked():RootMetaVersion
+export interface MetaVersionFunctions {
+    /** Convert {@link MetaVersion} to unyanked version */
+    toUnyanked():MetaVersion
+    /** Convert {@link MetaVersion} to yanked version */
+    toYanked():MetaVersion
 }
 /** Properties provider for `version` property on {@link RootMeta}  */
-export interface RootMetaVersionProps {
+export interface MetaVersionProps {
     /** Detect if the version was yanked (archived) */
     yanked:boolean
 }
-export type RootMetaVersion = Record<string, ({[key:string]:RootMetaVersionProps} & RootMetaVersionFunctions)> 
-
-/** Root Meta. For the version-specific, go to {@link Meta} */
-export interface RootMeta {
-    scope:string,
-    name:string,
-    version:RootMetaVersion
+export type MetaVersion = {[key:string]:MetaVersionProps} & MetaVersionFunctions
+/** Meta. For the version-specific, go to {@link VersionMeta} */
+export interface Meta {
+    scope:string
+    name:string
+    version:MetaVersion
 }
 
 /** File manifest for {@link Meta.manifest} */
@@ -29,32 +28,32 @@ export interface MetaManifestProps {
     checksum:`sha256-${string}`
 }
 /** Dependecies interface for the file */
-export interface MetaModuleGraph2Dependecies {
+export interface VersionMetaModuleGraph2Dependecies {
     /** Dependecy type, usually this can be found if you are using the `import` keyword or the `import()` dynamic function */
     type:'static'|'dynamic',
     /** Dependecy kind */
     kind:'export'|'import',
     /** Requested path to import/export, from this module */
     specifier:string,
-    /** Specifier range for {@link MetaModuleGraph2Dependecies.specifier} */
+    /** Specifier range for {@link VersionMetaModuleGraph2Dependecies.specifier} */
     specifierRange:[[number, number], [number, number]],
-    /** Detect if {@link MetaModuleGraph2Dependecies.specifier} is a file */
+    /** Detect if {@link VersionMetaModuleGraph2Dependecies.specifier} is a file */
     isFile():boolean
-    /** Detect if {@link MetaModuleGraph2Dependecies.specifier} is a package */
+    /** Detect if {@link VersionMetaModuleGraph2Dependecies.specifier} is a package */
     isPackage():boolean
 }
 /** Import/exported modules that are used in some modules */
-export interface MetaModuleGraph2Props {
+export interface VersionMetaModuleGraph2Props {
     /** Dependecies that are used in the file */
-    dependecies:MetaModuleGraph2Dependecies
+    dependecies:VersionMetaModuleGraph2Dependecies
 }
 
-/** Version Meta. For the root version that has the scope and name, go to {@link RootMeta} */
-export interface Meta{
+/** Version Meta. For the root version that has the scope and name, go to {@link Meta} */
+export interface VersionMeta{
     /** Meta manifest properties. The keys usually start with `/` on it */
-    manifest:{[key:`/${string}`]:MetaManifestProps};
+    manifest:{[key:`/${string}`]:VersionMetaManifestProps};
     /** Module graph v2. Import/exported modules that are used in some modules, including specifier, and more */
-    moduleGraph2:{[key:`./${string}`]:MetaModuleGraph2Props|EmptyObject}|undefined;
+    moduleGraph2:{[key:`./${string}`]:VersionMetaModuleGraph2Props|EmptyObject}|undefined;
     /** Module graph v1. Some of the early JSR packages have this, but it quickly changed to {@link Meta.moduleGraph2} */
     moduleGraph1:{[key:`./${string}`]:object}|undefined;
     /** Module exports. For the default, the key is `.` no matter what */
@@ -82,9 +81,9 @@ export class Package {
     /** Package name */
     public readonly name:string;
     /** use {@link Package.meta} instead */
-    private _meta:RootMeta|undefined;
+    private _meta:Meta|undefined;
     /** use {@link Package.versionMeta} instead */
-    private _versionMeta:{[key:string]:Meta};
+    private _versionMeta:{[key:string]:VersionMeta}|undefined;
     /** 
      * Package constructor 
      * 
@@ -95,28 +94,30 @@ export class Package {
         this.name = option.name
         if (option.autoFetch) {
             this.autoFetch = option.autoFetch;
-            this.refresh().catch((e)=>{throw e}).then(()=>{
-
-            })
+            this.refresh().catch((e)=>{throw e}).then(()=>{})
         }
     }
-    /** If package was successfully fetched for the first time */
+    /** Detect if package was successfully fetched for the first time */
     public get firstFetch(){
         return this._firstFetch
     }
-    /**  */
+    /** Get the metadata of this package */
     public get meta(){
-        return this._firstFetch
+        return this._meta
     }
+    /** Get version-specific metadata from this package */
+    public get versionMeta(){
+        return this._versionMeta
+    }
+    /** Refresh the package, except for the metadata */
     refresh():Promise<void>{
-        
-        this._firstFetch = true
+      this._firstFetch = true
     }
 }
-export function tryFindPackage(scope:string, name:string):Package|undefined{
-    let pkg:Package;
+export async function tryFindPackage(scope:string, name:string):Package|undefined{
+    let pkg:Package = pkg = new Package(scope, name);
     try {
-        pkg = new Package(scope, name)
+        await pkg.refresh()
     } catch (_) {return};
     return pkg
 }
