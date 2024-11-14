@@ -152,15 +152,15 @@ export class Package {
         this.host = option.host??"https://jsr.io"
     }
     /** Detect if package was successfully fetched for the first time */
-    public get firstFetch(){
+    public get firstFetch():boolean{
         return this._firstFetch
     }
     /** Get the metadata of this package */
-    public get meta(){
+    public get meta():Meta|undefined{
         return this._meta
     }
     /** Get CACHED version-specific metadata from this package. Use {@link Package.getVersionMeta} if you want to refresh */
-    public get cachedVersionMeta(){
+    public get cachedVersionMeta():{ [key: string]: VersionMeta; }{
         return this._cachedVersionMeta
     }
     /** Refresh MAIN metadata. If you want to refresh {@link VersionMeta}, use {@link Package.getVersionMeta} */
