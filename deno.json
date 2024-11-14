@@ -1,0 +1,10 @@
+{
+    "name":"@dunno/jsr-registry-bindings",
+    "version": "1.0.0",
+    "exports":"./mod.ts",
+    "publish": {"include": ["mod.ts", "README.md", "LICENSE"]},
+    "lock": false,
+    "imports": {
+        "@dunno/object": "jsr:@dunno/object@^1.0.4"
+    }
+}
