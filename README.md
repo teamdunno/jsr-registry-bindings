@@ -72,5 +72,5 @@ The output would something like
 console.log(ver.manifest)
 }
 // run the main function
-main().catch(e=>throw e).then(()=>{})
+main().catch((e)=>{throw e}).then(()=>{})
 ```
