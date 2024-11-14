@@ -1,6 +1,6 @@
 {
     "name":"@dunno/jsr-registry-bindings",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "exports":"./mod.ts",
     "publish": {"include": ["mod.ts", "README.md", "LICENSE"]},
     "lock": false,
