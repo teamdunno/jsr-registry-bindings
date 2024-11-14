@@ -183,6 +183,20 @@ export class Package {
       return meta
     }
     /** 
+     * Refresh MAIN metadata. If you want to refresh {@link VersionMeta}, use {@link Package.getVersionMeta}
+     * 
+     * But if fails, return `undefined`
+    */
+    async tryRefresh():Promise<Meta|undefined> {
+      let res:Meta;
+      try {
+        res = await this.refresh(version)
+      } catch (_) {
+        return
+      }
+      return res
+    }
+    /** 
      * Get version meta
      * 
      * @param version Version that you want to find
