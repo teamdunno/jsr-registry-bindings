@@ -1,4 +1,4 @@
-import * as obj from "jsr:@dunno/object"
+import * as obj from "jsr:@dunno/object@^1.0.4"
 /** Empty object, instead of using `{}` */
 export type EmptyObject = Record<string|number|symbol, never>
 /** Functions provider for {@link MetaVersions}  */
