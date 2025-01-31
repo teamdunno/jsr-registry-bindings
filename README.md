@@ -1,3 +1,4 @@
+⚠️WARNING: The library is going to be changed since the codebase is pretty confusing
 # Unofficial JSR registry bindings
 ## Current changelog
 Release!
