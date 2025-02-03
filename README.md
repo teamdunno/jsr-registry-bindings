@@ -1,4 +1,4 @@
-⚠️WARNING: The library is going to be changed since the codebase is pretty confusing.
+⚠️WARNING: The library is going to be introducing breaking changes, since the codebase is pretty confusing.
 
 If you are using Go, consider using [teamdunno/go-jsr-registry](https://github.com/teamdunno/go-jsr-registry) package
 
