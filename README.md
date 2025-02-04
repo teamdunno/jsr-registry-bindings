@@ -1,6 +1,6 @@
 ⚠️WARNING: The library is going to be deprecated
 
-Use [@dunnp/jsr-registry](https://github.com/teamdunno/jsr-registry) instead
+Use [@dunno/jsr-registry](https://github.com/teamdunno/jsr-registry) instead
 
 # Unofficial JSR registry bindings
 ## Current changelog
