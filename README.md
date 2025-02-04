@@ -1,6 +1,6 @@
-⚠️WARNING: The library is going to be introducing breaking changes, since the codebase is pretty confusing.
+⚠️WARNING: The library is going to be deprecated
 
-If you are using Go, consider using [teamdunno/go-jsr-registry](https://github.com/teamdunno/go-jsr-registry) package
+Use [@dunnp/jsr-registry](https://github.com/teamdunno/jsr-registry) instead
 
 # Unofficial JSR registry bindings
 ## Current changelog
