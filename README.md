@@ -1,4 +1,4 @@
-This package is deprecated. [I](https://github.com/vintheweirdass) (specifically) didnt interested in JS as my daily-driven code.
+This package is deprecated. [I](https://github.com/vintheweirdass) (specifically) didnt interested in JS as my daily-driven language.
 
 I publish things if I needed it
 
