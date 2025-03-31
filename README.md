@@ -1,6 +1,8 @@
-⚠️WARNING: The library is going to be deprecated
+This package is deprecated. [I](https://github.com/vintheweirdass) (specifically) didnt interested in JS as my daily-driven code.
 
-Use [@dunno/jsr-registry](https://github.com/teamdunno/jsr-registry) instead
+I publish things if I needed it
+
+If you type on another language, consider looking at the [alternatives that we've made](https://github.com/search?q=org%3Ateamdunno+jsr-registry&type=repositories)
 
 # Unofficial JSR registry bindings
 ## Current changelog
